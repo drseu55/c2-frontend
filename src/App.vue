@@ -1,5 +1,17 @@
 <script setup>
+import { onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import { useBackendStore } from "./stores/backend";
+
+const backendStore = useBackendStore();
+
+onMounted(() => {
+  let jwt = localStorage.getItem("JWT");
+
+  if (jwt !== null) {
+    backendStore.isAuthenticated = true;
+  }
+});
 </script>
 
 <template>

@@ -1,11 +1,28 @@
 <script setup>
 import { ref } from "vue";
+import { useBackendStore } from "../stores/backend";
+import { useQuasar } from "quasar";
 
-let email = ref("");
+const backendStore = useBackendStore();
+const $q = useQuasar();
+
+let username = ref("");
 let password = ref("");
 let isPwd = ref(true);
 
 let inputRule = [(val) => val.length > 0 || "Please insert password"];
+
+async function auth(username, password) {
+  let result = await backendStore.authenticate(username, password);
+
+  if (!result) {
+    $q.notify({
+      message: "Wrong username or password",
+      color: "red",
+      position: "top",
+    });
+  }
+}
 </script>
 
 <template>
@@ -37,7 +54,7 @@ let inputRule = [(val) => val.length > 0 || "Please insert password"];
               dense
               square
               filled
-              v-model="email"
+              v-model="username"
               type="text"
               label="Username"
             >
@@ -72,6 +89,7 @@ let inputRule = [(val) => val.length > 0 || "Please insert password"];
           <div class="row full-width items-center">
             <div class="col-6">
               <q-btn
+                @click="auth(username, password)"
                 outline
                 rounded
                 size="md"
