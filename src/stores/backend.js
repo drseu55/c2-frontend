@@ -10,6 +10,7 @@ export const useBackendStore = defineStore({
   id: "backendStore",
   state: () => ({
     isAuthenticated: false,
+    isLogoutVisible: false,
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2,

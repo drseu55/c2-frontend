@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import DashboardView from "../views/DashboardView.vue";
 import LoginView from "../views/LoginView.vue";
+import ImplantsView from "../views/ImplantsView.vue";
 import { useBackendStore } from "../stores/backend";
 
 const router = createRouter({
@@ -8,13 +9,18 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: HomeView,
+      name: "Dashboard",
+      component: DashboardView,
     },
     {
       path: "/login",
       name: "Login",
       component: LoginView,
+    },
+    {
+      path: "/implants",
+      name: "Implants",
+      component: ImplantsView,
     },
   ],
 });
@@ -26,7 +32,7 @@ router.beforeEach(async (to, _from) => {
   if (!backendStore.isAuthenticated && to.name !== "Login") {
     return { name: "Login" };
   } else if (backendStore.isAuthenticated && to.name == "Login") {
-    return { name: "Home" };
+    return { name: "Dashboard" };
   }
 });
 

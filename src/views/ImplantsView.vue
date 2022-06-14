@@ -1,7 +1,5 @@
 <script setup></script>
-
 <template>
-  <main>
-    <h1>Test</h1>
-  </main>
+  <h1>Test implantsview</h1>
 </template>
+<style></style>
