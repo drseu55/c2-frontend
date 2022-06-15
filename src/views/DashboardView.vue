@@ -1,5 +1,8 @@
-<script setup></script>
+<script setup>
+import WorldMap from "../components/WorldMap.vue";
+</script>
 <template>
-  <h1>Test dashboard</h1>
+  <h3>Test dashboard</h3>
+  <WorldMap />
 </template>
 <style></style>

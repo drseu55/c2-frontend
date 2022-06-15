@@ -109,20 +109,14 @@ onMounted(() => {
 <style>
 body {
   height: 100%;
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     ellipse at center,
     rgba(181, 189, 200, 0) 0%,
     rgba(130, 140, 149, 0) 50%,
     rgba(40, 52, 59, 1) 100%
-  );
+  ); */
+  background-color: rgb(70, 84, 91);
   background-repeat: no-repeat, repeat;
   background-size: 100% 100%, 30px 30px;
-  /* margin: 0px !important;
-  padding: 0px !important; */
 }
-
-/* html {
-  margin: 0px !important;
-  padding: 0px !important;
-} */
 </style>

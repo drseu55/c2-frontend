@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Quasar, Notify } from "quasar";
+import VNetworkGraph from "v-network-graph";
+import "v-network-graph/lib/style.css";
 
 // Import icon libraries
 import "@quasar/extras/material-icons/material-icons.css";
@@ -20,5 +22,6 @@ app.use(Quasar, {
     Notify,
   },
 });
+app.use(VNetworkGraph);
 
 app.mount("#app");
