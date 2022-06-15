@@ -1,5 +1,13 @@
-<script setup></script>
+<script setup>
+import ImplantsTable from "../components/ImplantsTable.vue";
+</script>
 <template>
-  <h1>Test implantsview</h1>
+  <h3 id="implants">Implants</h3>
+  <ImplantsTable />
 </template>
-<style></style>
+<style>
+#implants {
+  margin: auto;
+  font-weight: bold;
+}
+</style>
