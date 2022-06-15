@@ -2,7 +2,10 @@
 import { ref } from "vue";
 
 const columns = ref([]);
-const rows = ref([]);
+
+const props = defineProps({
+  rows: Array,
+});
 
 columns.value = [
   {
@@ -23,19 +26,19 @@ columns.value = [
     headerStyle: "font-weight: bold",
   },
   {
-    name: "public_ip",
+    name: "external_ip_address",
     required: true,
     label: "Public IP",
     align: "left",
-    field: "public_ip",
+    field: "external_ip_address",
     headerStyle: "font-weight: bold",
   },
   {
-    name: "internal_ip",
+    name: "internal_ip_address",
     required: true,
     label: "Internal IP",
     align: "left",
-    field: "internal_ip",
+    field: "internal_ip_address",
     headerStyle: "font-weight: bold",
   },
   {
@@ -89,38 +92,11 @@ columns.value = [
     headerStyle: "font-weight: bold",
   },
 ];
-
-rows.value = [
-  {
-    implant_id: "1111-1111-1111-1111",
-    created_at: "09-06-2022",
-    public_ip: "217.98.14.51",
-    internal_ip: "192.168.0.49",
-    os_type: "Linux",
-    machine_user: "alper",
-    machine_name: "fedora",
-    process_name: "dbus-broker",
-    pid: 9991,
-    architecture: "x86-64",
-  },
-  {
-    implant_id: "1111-1111-1111-1111",
-    created_at: "09-06-2022",
-    public_ip: "217.98.14.51",
-    internal_ip: "192.168.0.49",
-    os_type: "Linux",
-    machine_user: "alper",
-    machine_name: "fedora",
-    process_name: "dbus-broker",
-    pid: 9991,
-    architecture: "x86-64",
-  },
-];
 </script>
 <template>
   <div class="q-pa-md">
     <q-table
-      :rows="rows"
+      :rows="props.rows"
       :columns="columns"
       row-key="implant_id"
       no-data-label="There are no implants"

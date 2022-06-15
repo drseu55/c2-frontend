@@ -11,9 +11,10 @@ export const useBackendStore = defineStore({
   state: () => ({
     isAuthenticated: false,
     isLogoutVisible: false,
+    implants: [],
   }),
   getters: {
-    // doubleCount: (state) => state.counter * 2,
+    getImplants: (state) => state.implants,
   },
   actions: {
     async authenticate(username, password) {
@@ -34,6 +35,35 @@ export const useBackendStore = defineStore({
           }
         })
         .catch((error) => {
+          if (error.response.status === 401) {
+            return false;
+          }
+        });
+
+      return result;
+    },
+    async fetchImplants() {
+      let jwtToken = localStorage.getItem("JWT");
+
+      if (jwtToken === null) {
+        return false;
+      }
+
+      let result = axios({
+        method: "get",
+        url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/implants`,
+        headers: { Authorization: `Bearer ${jwtToken}` },
+      })
+        .then((response) => {
+          this.implants = response.data.implants;
+
+          return true;
+        })
+        .catch((error) => {
+          // Means that user's JWT token expired
+          // Show user info that his JWT token is expired
+          // Delete JWT token
+          // Redirect to login page
           if (error.response.status === 401) {
             return false;
           }
