@@ -14,7 +14,10 @@ export const useBackendStore = defineStore({
   state: () => ({
     isAuthenticated: false,
     isLogoutVisible: false,
+    isActionsDialogVisible: false,
     isTableLoading: false,
+    clickedRow: {},
+    actionDialogBarInfo: "",
     implants: [],
     countryCoordinates: {},
     nodes: {},
@@ -65,7 +68,6 @@ export const useBackendStore = defineStore({
         headers: { Authorization: `Bearer ${jwtToken}` },
       })
         .then((response) => {
-          console.log("Fetching");
           this.isTableLoading = false;
           this.implants = response.data.implants;
 
@@ -162,5 +164,6 @@ export const useBackendStore = defineStore({
         });
       }
     },
+    // async addTask(task) {},
   },
 });

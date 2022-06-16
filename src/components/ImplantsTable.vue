@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useBackendStore } from "../stores/backend";
+import ActionsDialog from "../components/ActionsDialog.vue";
 
 const backendStore = useBackendStore();
 
@@ -94,9 +95,32 @@ columns.value = [
     sortable: true,
     headerStyle: "font-weight: bold",
   },
+  {
+    name: "last_check_in",
+    required: true,
+    label: "Last Check In",
+    align: "left",
+    field: "last_check_in",
+    headerStyle: "font-weight: bold",
+  },
+  {
+    name: "actions",
+    required: true,
+    label: "Actions",
+    align: "left",
+    field: "actions",
+    headerStyle: "font-weight: bold",
+  },
 ];
+
+function openActionsDialog(rowInfo) {
+  backendStore.clickedRow = rowInfo.row;
+  backendStore.actionDialogBarInfo = `${backendStore.clickedRow.machine_user}@${backendStore.clickedRow.machine_name}(${backendStore.clickedRow.pid})`;
+  backendStore.isActionsDialogVisible = true;
+}
 </script>
 <template>
+  <ActionsDialog />
   <div class="q-pa-md">
     <q-table
       :rows="props.rows"
@@ -106,6 +130,15 @@ columns.value = [
       :hide-pagination="true"
       :loading="backendStore.isTableLoading"
     >
+      <template v-slot:body-cell-actions="props">
+        <q-td :props="props">
+          <q-btn
+            icon="call_to_action"
+            @click="openActionsDialog(props)"
+          ></q-btn>
+        </q-td>
+      </template>
+
       <template v-slot:loading>
         <q-inner-loading showing color="primary" />
       </template>
