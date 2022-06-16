@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import DashboardView from "../views/DashboardView.vue";
 import LoginView from "../views/LoginView.vue";
 import ImplantsView from "../views/ImplantsView.vue";
+import TasksView from "../views/TasksView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 import { useBackendStore } from "../stores/backend";
 
 const router = createRouter({
@@ -21,6 +23,16 @@ const router = createRouter({
       path: "/implants",
       name: "Implants",
       component: ImplantsView,
+    },
+    {
+      path: "/tasks",
+      name: "Tasks",
+      component: TasksView,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component: NotFoundView,
     },
   ],
 });
