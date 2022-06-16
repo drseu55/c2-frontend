@@ -6,6 +6,10 @@ const backendStore = useBackendStore();
 function closeDialog() {
   backendStore.isActionsDialogVisible = false;
 }
+
+function executeTask(task) {
+  backendStore.addTask(task);
+}
 </script>
 <template>
   <q-dialog v-model="backendStore.isActionsDialogVisible" persistent>
@@ -23,7 +27,13 @@ function closeDialog() {
       </q-bar>
 
       <q-card-section>
-        <q-btn color="primary" icon="info" stack class="setWidth" rounded
+        <q-btn
+          color="primary"
+          icon="info"
+          stack
+          class="setWidth"
+          rounded
+          @click="executeTask('get_info')"
           >Get info</q-btn
         >
       </q-card-section>

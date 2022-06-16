@@ -115,7 +115,11 @@ columns.value = [
 
 function openActionsDialog(rowInfo) {
   backendStore.clickedRow = rowInfo.row;
-  backendStore.actionDialogBarInfo = `${backendStore.clickedRow.machine_user}@${backendStore.clickedRow.machine_name}(${backendStore.clickedRow.pid})`;
+  if (rowInfo.row.machine_user !== null) {
+    backendStore.actionDialogBarInfo = `${backendStore.clickedRow.machine_user}@${backendStore.clickedRow.machine_name}(${backendStore.clickedRow.pid})`;
+  } else {
+    backendStore.actionDialogBarInfo = "";
+  }
   backendStore.isActionsDialogVisible = true;
 }
 </script>

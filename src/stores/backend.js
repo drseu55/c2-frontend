@@ -133,6 +133,12 @@ export const useBackendStore = defineStore({
     async populateNodes() {
       if (this.implants.length !== 0) {
         this.implants.forEach(async (implant, index) => {
+          // Exit function if implant is on target
+          // but info is missing, because get info is not yet send
+          if (implant.external_ip_address === null) {
+            return;
+          }
+
           this.nodes[`node${index + 1}`] = {};
 
           let key = `node${index + 1}`;
@@ -164,6 +170,43 @@ export const useBackendStore = defineStore({
         });
       }
     },
-    // async addTask(task) {},
+    async addTask(task) {
+      let jwtToken = localStorage.getItem("JWT");
+
+      if (jwtToken === null) {
+        return false;
+      }
+
+      let reqBody = {
+        implant_id: this.clickedRow.implant_id,
+        task: task,
+      };
+
+      axios({
+        method: "post",
+        url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/tasks`,
+        headers: { Authorization: `Bearer ${jwtToken}` },
+        data: reqBody,
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            $q.notify({
+              message:
+                "Task send successfully. You can check status in tasks page.",
+              color: "green",
+              position: "top",
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response.status >= 400) {
+            $q.notify({
+              message: "Something went wrong. Please try again later.",
+              color: "red",
+              position: "top",
+            });
+          }
+        });
+    },
   },
 });
