@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import { useBackendStore } from "../stores/backend";
+
+const backendStore = useBackendStore();
 
 const columns = ref([]);
 
@@ -101,7 +104,12 @@ columns.value = [
       row-key="implant_id"
       no-data-label="There are no implants"
       :hide-pagination="true"
-    />
+      :loading="backendStore.isTableLoading"
+    >
+      <template v-slot:loading>
+        <q-inner-loading showing color="primary" />
+      </template>
+    </q-table>
   </div>
 </template>
 <style></style>

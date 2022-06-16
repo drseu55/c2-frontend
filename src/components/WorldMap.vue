@@ -1,20 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import * as vNG from "v-network-graph";
+import { useBackendStore } from "../stores/backend";
 
-const nodes = {
-  node1: {},
-  node2: {},
-  node3: {},
-};
-
-const layouts = {
-  nodes: {
-    node1: { x: 566, y: 110.5 },
-    node2: { x: 482.32500000000005, y: 71.75 },
-    node3: { x: 802, y: 243 },
-  },
-};
+const backendStore = useBackendStore();
 
 const configs = vNG.defineConfigs({
   view: {
@@ -58,8 +47,8 @@ function onLoadImage() {
   <div class="map">
     <v-network-graph
       ref="graph"
-      :nodes="nodes"
-      :layouts="layouts"
+      :nodes="backendStore.nodes"
+      :layouts="backendStore.layouts"
       :configs="configs"
       :layers="layers"
     >

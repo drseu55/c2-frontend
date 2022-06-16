@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useBackendStore } from "./stores/backend";
 import LogoutDialog from "./components/LogoutDialog.vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useQuasar } from "quasar";
+import router from "./router";
 
 const backendStore = useBackendStore();
 
@@ -15,13 +16,42 @@ defineExpose({
 let drawer = ref(false);
 let miniState = ref(true);
 
-onMounted(() => {
+onMounted(async () => {
   let jwt = localStorage.getItem("JWT");
 
   if (jwt !== null) {
     backendStore.isAuthenticated = true;
   }
+
+  let result = await backendStore.fetchImplants();
+
+  if (!result) {
+    $q.notify({
+      message: "Your JWT expired. Redirecting...",
+      color: "red",
+      position: "top",
+    });
+
+    setTimeout(() => {
+      localStorage.removeItem("JWT");
+      backendStore.isAuthenticated = false;
+      router.push({ path: "/login", replace: true });
+    }, 5000);
+  } else {
+    backendStore.populateNodes();
+  }
+
+  setInterval(async () => {
+    await backendStore.fetchImplants();
+  }, 10000);
 });
+
+watch(
+  () => backendStore.getImplants.length,
+  function () {
+    backendStore.populateNodes();
+  }
+);
 </script>
 
 <template>
