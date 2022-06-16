@@ -19,6 +19,7 @@ export const useBackendStore = defineStore({
     clickedRow: {},
     actionDialogBarInfo: "",
     implants: [],
+    tasks: [],
     countryCoordinates: {},
     nodes: {},
     layouts: {},
@@ -26,6 +27,7 @@ export const useBackendStore = defineStore({
   getters: {
     getImplants: (state) => state.implants,
     getCountryCoordinates: (state) => state.countryCoordinates,
+    getTasks: (state) => state.tasks,
   },
   actions: {
     async authenticate(username, password) {
@@ -98,7 +100,6 @@ export const useBackendStore = defineStore({
         headers: { Authorization: `Bearer ${jwtToken}` },
       })
         .then((response) => {
-          console.log(response);
           this.countryCoordinates = response.data;
 
           return true;
@@ -121,7 +122,6 @@ export const useBackendStore = defineStore({
         url: `http://ip-api.com/json/${ip}`,
       })
         .then((response) => {
-          console.log(response);
           return response.data.country;
         })
         .catch((error) => {
@@ -205,6 +205,33 @@ export const useBackendStore = defineStore({
               color: "red",
               position: "top",
             });
+          }
+        });
+    },
+    async fetchTasks() {
+      let jwtToken = localStorage.getItem("JWT");
+
+      if (jwtToken === null) {
+        return false;
+      }
+
+      axios({
+        method: "get",
+        url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/tasks`,
+        headers: { Authorization: `Bearer ${jwtToken}` },
+      })
+        .then((response) => {
+          this.tasks = response.data.tasks;
+
+          return true;
+        })
+        .catch((error) => {
+          // Means that user's JWT token expired
+          // Show user info that his JWT token is expired
+          // Delete JWT token
+          // Redirect to login page
+          if (error.response.status === 401) {
+            return false;
           }
         });
     },

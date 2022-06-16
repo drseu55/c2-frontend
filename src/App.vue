@@ -104,7 +104,7 @@ watch(
               <q-item-section> Implants </q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple>
+            <q-item :to="{ name: 'Tasks' }" clickable v-ripple>
               <q-item-section avatar>
                 <q-icon name="task_alt" />
               </q-item-section>

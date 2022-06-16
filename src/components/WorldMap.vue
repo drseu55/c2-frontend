@@ -12,7 +12,7 @@ const configs = vNG.defineConfigs({
     minZoomLevel: 0.5,
   },
   node: {
-    selectable: true,
+    selectable: false,
     normal: {
       radius: 10,
       color: "#8888ff",
@@ -20,7 +20,7 @@ const configs = vNG.defineConfigs({
       strokeColor: "#0000aa",
     },
     hover: {
-      color: "#6666ff",
+      color: "#FF0000",
     },
     label: {
       fontSize: 12,
@@ -30,14 +30,17 @@ const configs = vNG.defineConfigs({
   },
 });
 
-// additional layers definition
 const layers = {
-  // {layername}: {position}
   worldmap: "base",
 };
 
-// ref="graph"
 const graph = ref();
+
+const eventHandlers = {
+  "node:click": ({ node }) => {
+    console.log(`I am in click ${node}`);
+  },
+};
 
 function onLoadImage() {
   graph.value?.fitToContents();
@@ -51,6 +54,7 @@ function onLoadImage() {
       :layouts="backendStore.layouts"
       :configs="configs"
       :layers="layers"
+      :event-handlers="eventHandlers"
     >
       <!-- Additional layer -->
       <template #worldmap>
