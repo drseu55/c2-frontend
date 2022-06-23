@@ -60,7 +60,7 @@ watch(
     <q-layout
       view="hHh Lpr lff"
       container
-      style="height: 100vh; overflow: auto"
+      style="height: 100vh; overflow: auto; max-height: 100vh"
       class="shadow-2"
     >
       <q-header elevated class="bg-blue">

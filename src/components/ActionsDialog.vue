@@ -7,6 +7,11 @@ function closeDialog() {
   backendStore.isActionsDialogVisible = false;
 }
 
+function openTerminal() {
+  backendStore.isTerminalVisible = true;
+  backendStore.isActionsDialogVisible = false;
+}
+
 function executeTask(task) {
   backendStore.addTask(task);
 }
@@ -34,8 +39,8 @@ function executeTask(task) {
           class="setWidth"
           rounded
           @click="executeTask('get_info')"
-          >Get info</q-btn
-        >
+          >Get info
+        </q-btn>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
@@ -67,7 +72,7 @@ function executeTask(task) {
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <q-btn color="primary" class="setWidth" rounded>
+        <q-btn color="primary" class="setWidth" rounded @click="openTerminal">
           <div class="column items-center">
             <q-avatar size="26px">
               <img

@@ -16,6 +16,7 @@ export const useBackendStore = defineStore({
     isLogoutVisible: false,
     isActionsDialogVisible: false,
     isTableLoading: false,
+    isTerminalVisible: false,
     clickedRow: {},
     actionDialogBarInfo: "",
     implants: [],
