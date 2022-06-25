@@ -114,9 +114,9 @@ columns.value = [
 ];
 
 function openActionsDialog(rowInfo) {
-  backendStore.clickedRow = rowInfo.row;
+  backendStore.implantsTableClickedRow = rowInfo.row;
   if (rowInfo.row.machine_user !== null) {
-    backendStore.actionDialogBarInfo = `${backendStore.clickedRow.machine_user}@${backendStore.clickedRow.machine_name}(${backendStore.clickedRow.pid})`;
+    backendStore.actionDialogBarInfo = `${backendStore.implantsTableClickedRow.machine_user}@${backendStore.implantsTableClickedRow.machine_name}(${backendStore.implantsTableClickedRow.pid})`;
   } else {
     backendStore.actionDialogBarInfo = "";
   }
@@ -131,8 +131,8 @@ function openActionsDialog(rowInfo) {
       :columns="columns"
       row-key="implant_id"
       no-data-label="There are no implants"
-      :hide-pagination="true"
-      :loading="backendStore.isTableLoading"
+      :hide-pagination="false"
+      :loading="backendStore.isImplantsTableLoading"
     >
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">

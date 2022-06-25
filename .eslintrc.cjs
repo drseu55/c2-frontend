@@ -18,4 +18,7 @@ module.exports = {
     },
   ],
   ignorePatterns: ["src/assets/*"],
+  rules: {
+    "no-async-promise-executor": 0,
+  },
 };

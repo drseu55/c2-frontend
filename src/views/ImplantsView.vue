@@ -11,169 +11,1055 @@ headerTitle.value = backendStore.actionDialogBarInfo || "Terminal";
 
 /* eslint-disable no-unused-vars */
 const taskList = {
-  open: {
-    description: "Open a specified url in a new tab.",
-    open(pushToList, input) {
-      const p = new Promise((resolve, reject) => {
-        let url = input.split(" ")[1];
-        if (!url) {
-          reject({
-            type: "error",
-            label: "Error",
-            message: "a url is required!",
-          });
-          return;
-        }
-        pushToList({ type: "success", label: "Success", message: "Opening" });
+  ls: {
+    description: "Lists all the files of a directory.",
+    ls(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
 
-        if (input.split(" ")[1].indexOf("http") === -1) {
-          url = "http://" + input.split(" ")[1];
-        }
-        window.open(url, "_blank");
-        resolve({ type: "success", label: "Done", message: "Page Opened!" });
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
       });
+
       return p;
     },
   },
-  ls: {
-    description: "Lists all the files of a directory.",
-    ls(pushToList, input) {},
-  },
   alias: {
     description: "Converts complex commands into simpler ones.",
-    alias(pushToList, input) {},
+    alias(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   unalias: {
     description: "Remove an alias from the already defined aliases.",
-    unalias(pushToList, input) {},
+    unalias(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   pwd: {
     description: "Display the current working directory location.",
-    pwd(pushToList, input) {},
+    pwd(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   cd: {
     description: "Changes the current working directory.",
-    cd(pushToList, input) {},
+    cd(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   cp: {
     description: "Copies file content from one file to another file.",
-    cp(pushToList, input) {},
+    cp(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   rm: {
     description: "Removes a file.",
-    rm(pushToList, input) {},
+    rm(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   mv: {
     description: "Renames directories or files.",
-    mv(pushToList, input) {},
+    mv(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   mkdir: {
     description: "Creates directory.",
-    mkdir(pushToList, input) {},
+    mkdir(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   touch: {
     description: "Creates an empty file.",
-    touch(pushToList, input) {},
+    touch(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   chown: {
     description: "Changes the owner of a file or directory.",
-    chown(pushToList, input) {},
+    chown(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   chmod: {
     description: "Changes permission for a file or directory.",
-    chmod(pushToList, input) {},
+    chmod(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   shutdown: {
     description: "Power off the machine.",
-    shutdown(pushToList, input) {},
+    shutdown(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   top: {
     description: "Interactive process viewer.",
-    top(pushToList, input) {},
+    top(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   unzip: {
     description: "Extract the content of a .zip file.",
-    unzip(pushToList, input) {},
+    unzip(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   cat: {
     description: "It is a multi-function command.",
-    cat(pushToList, input) {},
+    cat(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   ps: {
     description: "List the running processes from current shell session.",
-    ps(pushToList, input) {},
+    ps(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   kill: {
     description: "Terminates a process.",
-    kill(pushToList, input) {},
+    kill(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   history: {
     description: "Displays older commands from the shell command history.",
-    history(pushToList, input) {},
+    history(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   passwd: {
     description: "Set a password for a user group.",
-    passwd(pushToList, input) {},
+    passwd(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   which: {
     description: "Outputs the full path of shell commands.",
-    which(pushToList, input) {},
+    which(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   shred: {
     description: "Overrides the contents of a file repeatedly.",
-    shred(pushToList, input) {},
+    shred(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   tail: {
     description: "Displays the last ten lines of a file.",
-    tail(pushToList, input) {},
+    tail(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   head: {
     description: "Displays the first ten lines of a file.",
-    head(pushToList, input) {},
+    head(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   grep: {
     description: "Filters lines of text containing a certain string.",
-    grep(pushToList, input) {},
+    grep(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   whoami: {
     description: "Tells the name of the user.",
-    whoami(pushToList, input) {},
+    whoami(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   wc: {
     description: "Counts words, lines, and characters.",
-    wc(pushToList, input) {},
+    wc(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   uname: {
     description: "Prints the operative system information.",
-    uname(pushToList, input) {},
+    uname(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   wget: {
     description: "Utility to retrieve content from the internet.",
-    wget(pushToList, input) {},
+    wget(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   df: {
     description: "Checks the disk space in the system.",
-    df(pushToList, input) {},
+    df(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   groupadd: {
     description: "Creates a group.",
-    groupadd(pushToList, input) {},
+    groupadd(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   id: {
     description: "Tells about the user's id in the system.",
-    id(pushToList, input) {},
+    id(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   locate: {
     description: "Searches a file in the database.",
-    locate(pushToList, input) {},
+    locate(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   useradd: {
     description: "Adds users.",
-    useradd(pushToList, input) {},
+    useradd(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
   w: {
     description: "Displays who is logged on and what are they doing.",
-    w(pushToList, input) {},
+    w(pushToList, input) {
+      const p = new Promise(async (resolve) => {
+        await backendStore.addTask("command", input);
+
+        await backendStore.fetchTasks();
+
+        const task = backendStore.tasks.at(-1);
+
+        let intervalId = setInterval(async () => {
+          await backendStore.fetchPlainResult(task.task_id);
+
+          if (backendStore.plainResult !== "wait") {
+            clearInterval(intervalId);
+            pushToList({
+              label: "",
+              type: "",
+              message: String.fromCharCode(
+                ...backendStore.plainResult.plain_result_content
+              ),
+            });
+            resolve({ type: "success", label: "", message: "" });
+          }
+        }, 2000);
+      });
+
+      return p;
+    },
   },
 };
 

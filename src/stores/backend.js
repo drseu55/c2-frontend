@@ -15,12 +15,16 @@ export const useBackendStore = defineStore({
     isAuthenticated: false,
     isLogoutVisible: false,
     isActionsDialogVisible: false,
-    isTableLoading: false,
+    isResultDialogVisible: false,
+    isImplantsTableLoading: false,
+    isTasksTableLoading: false,
     isTerminalVisible: false,
-    clickedRow: {},
+    implantsTableClickedRow: {},
+    tasksTableClickedRow: {},
     actionDialogBarInfo: "",
     implants: [],
     tasks: [],
+    plainResult: {},
     countryCoordinates: {},
     nodes: {},
     layouts: {},
@@ -63,7 +67,7 @@ export const useBackendStore = defineStore({
         return false;
       }
 
-      this.isTableLoading = true;
+      this.isImplantsTableLoading = true;
 
       let result = axios({
         method: "get",
@@ -71,7 +75,7 @@ export const useBackendStore = defineStore({
         headers: { Authorization: `Bearer ${jwtToken}` },
       })
         .then((response) => {
-          this.isTableLoading = false;
+          this.isImplantsTableLoading = false;
           this.implants = response.data.implants;
 
           return true;
@@ -171,7 +175,7 @@ export const useBackendStore = defineStore({
         });
       }
     },
-    async addTask(task) {
+    async addTask(task, value) {
       let jwtToken = localStorage.getItem("JWT");
 
       if (jwtToken === null) {
@@ -179,11 +183,12 @@ export const useBackendStore = defineStore({
       }
 
       let reqBody = {
-        implant_id: this.clickedRow.implant_id,
+        implant_id: this.implantsTableClickedRow.implant_id,
         task: task,
+        value: value,
       };
 
-      axios({
+      await axios({
         method: "post",
         url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/tasks`,
         headers: { Authorization: `Bearer ${jwtToken}` },
@@ -191,22 +196,12 @@ export const useBackendStore = defineStore({
       })
         .then((response) => {
           if (response.status === 200) {
-            $q.notify({
-              message:
-                "Task send successfully. You can check status in tasks page.",
-              color: "green",
-              position: "top",
-            });
+            return true;
           }
         })
         .catch((error) => {
-          if (error.response.status >= 400) {
-            $q.notify({
-              message: "Something went wrong. Please try again later.",
-              color: "red",
-              position: "top",
-            });
-          }
+          console.log(error);
+          return false;
         });
     },
     async fetchTasks() {
@@ -216,13 +211,16 @@ export const useBackendStore = defineStore({
         return false;
       }
 
-      axios({
+      this.isTasksTableLoading = true;
+
+      await axios({
         method: "get",
         url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/tasks`,
         headers: { Authorization: `Bearer ${jwtToken}` },
       })
         .then((response) => {
           this.tasks = response.data.tasks;
+          this.isTasksTableLoading = false;
 
           return true;
         })
@@ -234,6 +232,30 @@ export const useBackendStore = defineStore({
           if (error.response.status === 401) {
             return false;
           }
+        });
+    },
+    async fetchPlainResult(taskId) {
+      let jwtToken = localStorage.getItem("JWT");
+
+      if (jwtToken === null) {
+        return false;
+      }
+
+      await axios({
+        method: "get",
+        url: `${PROTOCOL}://${BASE_URL}:${PORT}/api/web/plain_result/${taskId}`,
+        headers: { Authorization: `Bearer ${jwtToken}` },
+      })
+        .then((response) => {
+          this.plainResult = response.data;
+        })
+        .catch((error) => {
+          // Means that user's JWT token expired
+          // Show user info that his JWT token is expired
+          // Delete JWT token
+          // Redirect to login page
+          console.log(error);
+          return false;
         });
     },
   },

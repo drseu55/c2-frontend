@@ -1,5 +1,8 @@
 <script setup>
 import { useBackendStore } from "../stores/backend";
+import { useQuasar } from "quasar";
+
+const $q = useQuasar();
 
 const backendStore = useBackendStore();
 
@@ -12,8 +15,24 @@ function openTerminal() {
   backendStore.isActionsDialogVisible = false;
 }
 
-function executeTask(task) {
-  backendStore.addTask(task);
+function executeTask(task, value) {
+  let result = backendStore.addTask(task, value);
+
+  backendStore.isActionsDialogVisible = false;
+
+  if (result) {
+    $q.notify({
+      message: "Task send successfully. You can check status in tasks page.",
+      color: "green",
+      position: "top",
+    });
+  } else {
+    $q.notify({
+      message: "Something went wrong. Please try again later.",
+      color: "red",
+      position: "top",
+    });
+  }
 }
 </script>
 <template>
@@ -38,7 +57,7 @@ function executeTask(task) {
           stack
           class="setWidth"
           rounded
-          @click="executeTask('get_info')"
+          @click="executeTask('get_info', '')"
           >Get info
         </q-btn>
       </q-card-section>

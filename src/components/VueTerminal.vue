@@ -92,8 +92,6 @@ function handleCommand(e) {
         return;
     }
 
-    console.log(lastLineContent.value);
-
     commandHistory.value.push(inputCommand.value);
     historyIndex.value = commandHistory.value.length;
 
@@ -142,8 +140,9 @@ function handlekeyEvent(e) {
 }
 
 function handleRun(taskName, input) {
-    if (!props.taskList[taskName] || !props.taskList[taskName][taskName])
+    if (!props.taskList[taskName] || !props.taskList[taskName][taskName]) {
         return Promise.resolve();
+    }
 
     lastLineContent.value = '...';
 
