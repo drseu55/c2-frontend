@@ -16,6 +16,7 @@ export const useBackendStore = defineStore({
     isLogoutVisible: false,
     isActionsDialogVisible: false,
     isResultDialogVisible: false,
+    isCheckInDialogVisible: false,
     isImplantsTableLoading: false,
     isTasksTableLoading: false,
     isTerminalVisible: false,

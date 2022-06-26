@@ -34,6 +34,11 @@ function executeTask(task, value) {
     });
   }
 }
+
+function openCheckInDialog() {
+  backendStore.isActionsDialogVisible = false;
+  backendStore.isCheckInDialogVisible = true;
+}
 </script>
 <template>
   <q-dialog v-model="backendStore.isActionsDialogVisible" persistent>
@@ -105,6 +110,18 @@ function executeTask(task, value) {
             <div class="text-center">Send commands</div>
           </div>
         </q-btn>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        <q-btn
+          color="primary"
+          icon="settings"
+          stack
+          class="setWidth"
+          rounded
+          @click="openCheckInDialog"
+          >Change check in time</q-btn
+        >
       </q-card-section>
     </q-card>
   </q-dialog>

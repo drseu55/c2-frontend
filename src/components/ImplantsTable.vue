@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useBackendStore } from "../stores/backend";
 import ActionsDialog from "../components/ActionsDialog.vue";
+import CheckInDialog from "./CheckInDialog.vue";
 
 const backendStore = useBackendStore();
 
@@ -96,14 +97,6 @@ columns.value = [
     headerStyle: "font-weight: bold",
   },
   {
-    name: "last_check_in",
-    required: true,
-    label: "Last Check In",
-    align: "left",
-    field: "last_check_in",
-    headerStyle: "font-weight: bold",
-  },
-  {
     name: "actions",
     required: true,
     label: "Actions",
@@ -125,6 +118,7 @@ function openActionsDialog(rowInfo) {
 </script>
 <template>
   <ActionsDialog />
+  <CheckInDialog />
   <div class="q-pa-md">
     <q-table
       :rows="props.rows"

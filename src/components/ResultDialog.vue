@@ -8,7 +8,7 @@ function closeResultDialog() {
 }
 </script>
 <template>
-  <q-dialog v-model="backendStore.isResultDialogVisible">
+  <q-dialog v-model="backendStore.isResultDialogVisible" persistent>
     <q-card>
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">
