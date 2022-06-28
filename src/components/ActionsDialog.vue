@@ -74,6 +74,7 @@ function openCheckInDialog() {
           stack
           class="setWidth"
           rounded
+          @click="executeTask('take_picture', '')"
           >Take a picture</q-btn
         >
       </q-card-section>
@@ -85,6 +86,7 @@ function openCheckInDialog() {
           stack
           class="setWidth"
           rounded
+          @click="executeTask('take_screenshot', '')"
           >Take a screenshot
         </q-btn>
       </q-card-section>

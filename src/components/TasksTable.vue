@@ -94,7 +94,7 @@ async function getResult(row) {
         <q-td :props="props">
           <q-btn
             v-if="props.row.task_status === 'completed'"
-            @click="getResult(props.row)"
+            @click.stop="getResult(props.row)"
             icon="visibility"
           >
           </q-btn>
