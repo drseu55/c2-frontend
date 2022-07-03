@@ -81,7 +81,7 @@ watch(
         :mini="miniState"
         @mouseover="miniState = false"
         @mouseout="miniState = true"
-        :width="200"
+        :width="300"
         :breakpoint="500"
         bordered
         class="bg-grey-3"
@@ -95,6 +95,33 @@ watch(
 
               <q-item-section> Dashboard </q-item-section>
             </q-item>
+
+            <q-expansion-item expand-separator icon="info" label="Information">
+              <q-item
+                :inset-level="1"
+                :to="{ name: 'AvailableImplants' }"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="bug_report" />
+                </q-item-section>
+
+                <q-item-section> Available Implants </q-item-section>
+              </q-item>
+              <q-item
+                :inset-level="1"
+                :to="{ name: 'AvailableTasks' }"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="task_alt" />
+                </q-item-section>
+
+                <q-item-section> Available Tasks </q-item-section>
+              </q-item>
+            </q-expansion-item>
 
             <q-item :to="{ name: 'Implants' }" clickable v-ripple>
               <q-item-section avatar>

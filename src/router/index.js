@@ -4,6 +4,8 @@ import LoginView from "../views/LoginView.vue";
 import ImplantsView from "../views/ImplantsView.vue";
 import TasksView from "../views/TasksView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import AvailableImplantsView from "../views/AvailableImplantsView.vue";
+import AvailableTasksView from "../views/AvailableTasksView.vue";
 import { useBackendStore } from "../stores/backend";
 
 const router = createRouter({
@@ -28,6 +30,16 @@ const router = createRouter({
       path: "/tasks",
       name: "Tasks",
       component: TasksView,
+    },
+    {
+      path: "/availableimplants",
+      name: "AvailableImplants",
+      component: AvailableImplantsView,
+    },
+    {
+      path: "/availabletasks",
+      name: "AvailableTasks",
+      component: AvailableTasksView,
     },
     {
       path: "/:pathMatch(.*)*",
