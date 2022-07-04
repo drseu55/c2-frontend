@@ -92,12 +92,6 @@ function openCheckInDialog() {
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <q-btn color="primary" icon="keyboard" stack class="setWidth" rounded
-          >Start keylogging</q-btn
-        >
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
         <q-btn color="primary" class="setWidth" rounded @click="openTerminal">
           <div class="column items-center">
             <q-avatar size="26px">
